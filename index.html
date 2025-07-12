@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Coffee Sales Analysis</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #211915, #33241c);
+        color: #f7f3ed;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 20px;
+        scroll-behavior: smooth;
+      }
+
+      h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 10px;
+        background: linear-gradient(to right, #c48a3f, #74431f);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: #e0d7cf;
+        max-width: 850px;
+        text-align: center;
+        margin-bottom: 30px;
+        line-height: 1.5;
+      }
+
+      video,
+      img {
+        width: 100%;
+        max-width: 1000px;
+        border-radius: 16px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        margin-bottom: 40px;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .fade-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- FLOATING BUTTONS ---------- */
+      .button-group {
+        position: fixed; /* stay in view */
+        top: 20px;
+        right: 20px;
+        display: flex;
+        gap: 16px;
+        z-index: 999;
+      }
+
+      a.download-link {
+        background-color: #c48a3f;
+        color: #211915;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        transition: background 0.3s, transform 0.2s;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+      }
+
+      a.download-link:hover {
+        background-color: #dda45a;
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+        p {
+          font-size: 1rem;
+          padding: 0 10px;
+        }
+
+        .button-group {
+          top: 10px;
+          right: 10px;
+          flex-direction: column; /* stack vertically on small screens */
+          gap: 10px;
+        }
+
+        a.download-link {
+          font-size: 0.85rem;
+          padding: 8px 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Coffee Sales Analysis</h1>
+
+    <p>
+      From bean to brew, uncover insights on peak hours, best-selling blends,
+      and revenue trends through a blend of SQL, pandas, and vibrant
+      visualizations.
+    </p>
+
+    <!-- Replace with your actual media files -->
+    <video class="fadeable" controls autoplay muted loop>
+      <source src="Visualisation.mov" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <img class="fadeable" src="coffee-1.png" alt="Sales by Hour Bar Chart" />
+    <img class="fadeable" src="coffee-2.png" alt="Top Products Visualization" />
+
+    <!-- Floating buttons -->
+    <div class="button-group">
+      <a href="coffee-EDA.ipynb" class="download-link">View&nbsp;Script</a>
+      <a href="coffee_sales_cleaned.csv" class="download-link"
+        >Source&nbsp;Data</a
+      >
+    </div>
+
+    <script>
+      (() => {
+        const elements = document.querySelectorAll(".fadeable");
+
+        const sectionObserver = new IntersectionObserver(
+          (entries) =>
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("fade-in");
+                sectionObserver.unobserve(entry.target);
+              }
+            }),
+          { threshold: 0.1 }
+        );
+
+        elements.forEach((el) => sectionObserver.observe(el));
+      })();
+    </script>
+  </body>
+</html>
